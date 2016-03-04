@@ -22,16 +22,11 @@ $app->get('/',function() use($app){
 });
 
 $app->post("/ajouter",function(Request $request) use($app){
-	return ajouter($request->get("titreO"),$request->get("titreF"),$request->get("pays"),$request->get("date"),$request->get("duree"),$request->get("couleur"),$request->get("real"));
+	return $app->json(ajouter($request->get("titreO"),$request->get("titreF"),$request->get("pays"),$request->get("date"),$request->get("duree"),$request->get("couleur"),$request->get("real")));
 });
 
 $app->post("/modifier",function(Request $request) use($app){
-	modifier($request->get("code"),$request->get("titreo"),$request->get("titref"),$request->get("pays"),$request->get("dates"),$request->get("duree"),$request->get("couleur"));
-	return true;
-});
-
-$app->get('/modifier',function() use($app){
-	return true;
+	return modifier($request->get("code"),$request->get("titreo"),$request->get("titref"),$request->get("pays"),$request->get("dates"),$request->get("duree"),$request->get("couleur"),$request->get("real"));
 });
 
 $app->get('/info/{code}',function($code) use($app){

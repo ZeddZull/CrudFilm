@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `films` (
   `titre_original` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `titre_francais` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `pays` varchar(20) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `dates` int(11) DEFAULT NULL,
+  `date` int(11) DEFAULT NULL,
   `duree` int(11) DEFAULT NULL,
   `couleur` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `realisateur` int(11) DEFAULT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `films` (
 -- Contenu de la table `films`
 --
 
-INSERT INTO `films` (`code_film`, `titre_original`, `titre_francais`, `pays`, `dates`, `duree`, `couleur`, `realisateur`, `image`) VALUES
+INSERT INTO `films` (`code_film`, `titre_original`, `titre_francais`, `pays`, `date`, `duree`, `couleur`, `realisateur`, `image`) VALUES
 (193, 'One, Two, Three                                   ', 'Un, deux, trois                                   ', 'USA                 ', 1961, 115, 'NB        ', 10, '1_2_3.gif           '),
 (190, 'Caro diario                                       ', 'Journal intime                                    ', 'Italie              ', 1994, 100, 'couleur   ', 394, 'journal_intime.gif  '),
 (328, 'Little Big Man                                    ', 'Little Big Man                                    ', 'USA                 ', 1970, 139, 'couleur   ', 607, 'little_big_man.jpg  '),
@@ -305,7 +305,7 @@ INSERT INTO `films` (`code_film`, `titre_original`, `titre_francais`, `pays`, `d
 (71, 'To Be or Not to Be                                ', 'To Be or Not to Be                                ', 'USA                 ', 1942, 99, 'NB        ', 177, 'to_be_or_not.gif    '),
 (416, 'No Smoking                                        ', 'No Smoking                                        ', 'France              ', 1993, 140, 'couleur   ', 132, 'smoking.jpeg        '),
 (258, 'Sans toit ni loi                                  ', 'Sans toit ni loi                                  ', 'France              ', 1985, 105, 'couleur   ', 533, 'sans_toit_loi.gif   ');
-INSERT INTO `films` (`code_film`, `titre_original`, `titre_francais`, `pays`, `dates`, `duree`, `couleur`, `realisateur`, `image`) VALUES
+INSERT INTO `films` (`code_film`, `titre_original`, `titre_francais`, `pays`, `date`, `duree`, `couleur`, `realisateur`, `image`) VALUES
 (519, 'Siu lam juk kau                                   ', 'Shaolin soccer                                    ', 'Chine-Hong-Kong     ', 2001, 87, 'couleur   ', 808, 'shaolin_soccer.jpg  '),
 (102, 'Great Dictator (The)                              ', 'Dictateur (Le)                                    ', 'USA                 ', 1940, 124, 'NB        ', 12, 'dictateur.jpg       '),
 (233, 'Ten Commandments (The)                            ', 'Dix commandements (Les)                           ', 'USA                 ', 1956, 220, 'couleur   ', 493, '10_commandements.gif'),
@@ -567,7 +567,7 @@ INSERT INTO `films` (`code_film`, `titre_original`, `titre_francais`, `pays`, `d
 (540, 'Garde à vue                                       ', 'Garde à vue                                       ', 'France              ', 1981, 86, 'couleur   ', 869, 'garde_a_vue.jpeg    '),
 (524, 'Wild at Heart                                     ', 'Sailor et Lula                                    ', 'USA                 ', 1990, 124, 'couleur   ', 179, 'sailor_lula.jpg     '),
 (534, 'Horse Feathers                                    ', 'Plumes de cheval                                  ', 'USA                 ', 1932, 68, 'NB        ', 862, 'plumes_cheval.jpeg  ');
-INSERT INTO `films` (`code_film`, `titre_original`, `titre_francais`, `pays`, `dates`, `duree`, `couleur`, `realisateur`, `image`) VALUES
+INSERT INTO `films` (`code_film`, `titre_original`, `titre_francais`, `pays`, `date`, `duree`, `couleur`, `realisateur`, `image`) VALUES
 (532, 'Kermesse héroïque (La)                            ', 'Kermesse héroïque (La)                            ', 'France              ', 1935, 110, 'NB        ', 861, 'kermesse_hero.jpeg  '),
 (507, 'Last Wave (The)                                   ', 'Dernière vague (La)                               ', 'Australie           ', 1977, 106, 'couleur   ', 496, 'derniere_vague.jpeg '),
 (541, 'Play It Again, Sam                                ', 'Tombe les filles et tais-toi                      ', 'USA                 ', 1972, 85, 'couleur   ', 871, 'tombe_filles.jpeg   '),

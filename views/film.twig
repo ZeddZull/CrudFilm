@@ -4,13 +4,19 @@
 
 {% block body %}
 <section>
-    <label for="genres">Trouver par genre :</label>
-    <select id="genres">
-        <option value="0" selected>Tout</option>
-        {% for genre in lesGenres %}
-            <option value="{{genre.code_genre}}">{{genre.nom_genre}}</option>
-        {% endfor %}
-    </select>
+    <form class="form-horizontal">
+    <div class="form-group">
+        <label for="genres" class="col-sm-2 control-label" >Trouver par genre :</label>
+        <div class="col-sm-4">
+            <select id="genres" class="form-control">
+                <option value="0" selected>Tout</option>
+                {% for genre in lesGenres %}
+                    <option value="{{genre.code_genre}}">{{genre.nom_genre}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    </form>
 </section>
 <section>
   <table id = "lesFilms">
@@ -37,7 +43,7 @@
         <td> {{film.pays}} </td>
         <td> {{film.dates}} </td>
         <td> {{film.duree}} </td>
-        <td> {{film.couleur}} </td>
+        <td class="couleur"> {{film.couleur}} </td>
         <td dataid="{{film.realisateur}}"> {{film.prenom~" "~film.nom}} </td>
         <td> <input value="Modifier" type="button" dataid="{{film.code_film}}" class="action btn btn-warning btn-sm" /> </td>
         <td> <input value="Supprimer" type="button" dataid="{{film.code_film}}" class="action btn btn-danger btn-sm"/> </td>
@@ -47,50 +53,56 @@
   </table>
 </section>
 <section>
-  <input type = "button" id="add" value="Nouveau film" class="btn btn-primary"/>
+  <input type = "button" id="add" value="Nouveau film" class="btn btn-success"/>
 
   <form id="addFilm" class="form-horizontal">
     {# Création du champs permettant d'editer de nouveaux films #}
     <div class="form-group">
         <label for="titreOriginal" class="col-sm-2 control-label"> Titre Original </label>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
             <input type="text" id="titreOriginal" name="titreOriginal">
         </div>
     </div>
     <div class="form-group">
         <label for="titreFrancais" class="col-sm-2 control-label"> Titre Francais </label>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
             <input type="text" id="titreFrancais" name="titreFrancais">
         </div>
     </div>
     <div class="form-group">
-        <label for="couleur" class="col-sm-2 control-label"> Noir/Blanc et/ou Couleur </label>
-        <div class="col-sm-10">
-            <input type="text" id="couleur" name="couleur">
-        </div>
+        <label for="couleur" class="col-sm-2 control-label">Couleur du film</label>
+        <label>
+            <input type="radio" name="couleur" value="NB"> Noir et Blanc
+        </label>
+        <label>
+            <input type="radio" name="couleur" value="couleur" checked>Couleur
+        </label>
+        <label>
+            <input type="radio" name="couleur" value="NB/couleur">Les deux
+        </label>
     </div>
     <div class="form-group">
         <label for="pays" class="col-sm-2 control-label"> Pays </label>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
             <input type="text" id="pays" name="pays">
         </div>
     </div>
     <div class="form-group">
         <label for="date" class="col-sm-2 control-label"> Date </label>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
             <input type="date" id="date" name="date">
         </div>
     </div>
     <div class="form-group">
         <label for="duree" class="col-sm-2 control-label"> Durée </label>
-        <div class="col-sm-10">
+        <div class="col-sm-4">
             <input type="number" id="duree" name="duree">
         </div>
     </div>
     <div class="form-group">
         <label for="reals" class="col-sm-2 control-label">Réalisateur</label>
-        <div class="col-sm-10">
-            <select id="reals">
+        <div class="col-sm-2">
+            <select id="reals" class="form-control">
                 {% for real in lesReals %}
                     <option value="{{real.code_indiv}}">{{real.prenom}} {{real.nom}}</option>
                 {% endfor %}

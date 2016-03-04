@@ -10,22 +10,21 @@ function getAllFilms(){
 
 function ajouter($titreO,$titreF,$pays,$dates,$duree,$couleur,$real){
 	$bdd = connectBd();
-	$req = $bdd->prepare('INSERT INTO films(titre_original,titre_francais,pays,dates,duree,couleur,realisateur) VALUES (:titreO,:titreF,:pays,:dates,:duree,:couleur,:reali)');
-	$req->execute(array(
-		"titreO"=>$titreO,
-		"titreF"=>$titreF,
-		"pays"=>$pays,
-		"dates"=>$dates,
-		"duree"=>$duree,
-		"couleur"=>$couleur,
-		"reali"=>$real
-		));
+	$req = $bdd->prepare('INSERT INTO films VALUES (0,:titreO,:titreF,:pays,:dates,:duree,:couleur,:reali,"?")');
+	$req->bindParam(":titreO",$titreO);
+	$req->bindParam(":titreF",$titreF);
+	$req->bindParam(":pays",$pays);
+	$req->bindParam(":dates",$dates);
+	$req->bindParam(":duree",$duree);
+	$req->bindParam(":couleur",$couleur);
+	$req->bindParam(":reali",$real);
+	$req->execute();
 	return $bdd->lastInsertId();
 }
 
 function getFilm($codeFilm){
 	$bdd = connectBd();
-	$req = $bdd->prepare('SELECT * FROM films WHERE code_film=:codeFilm');
+	$req = $bdd->prepare('SELECT * FROM films INNER JOIN individus ON films.realisateur = individus.code_indiv WHERE code_film=:codeFilm');
 	$req->bindParam(':codeFilm',$codeFilm);
 	$req->execute();
 	return $req->fetch();
@@ -40,7 +39,7 @@ function supprimerFilm($codeFilm){
 
 function modifier($codeFilm,$titreO,$titreF,$pays,$dates,$duree,$couleur){
 	$bdd = connectBd();
-	$req = $bdd->prepare('UPDATE films SET titre_original=:titreO,titre_francais=:titreF,pays=:pays,dates=:dates,duree=:duree,couleur=:couleur WHERE code_film=:codeFilm');
+	$req = $bdd->prepare('UPDATE films SET titre_original=:titreO, titre_francais=:titreF, pays=:pays, date=:dates, duree=:duree, couleur=:couleur, realisateur=:reali WHERE code_film=:codeFilm');
 	$req->bindParam(":codeFilm",$codeFilm);
 	$req->bindParam(":titreO",$titreO);
 	$req->bindParam(":titreF",$titreF);
@@ -48,7 +47,8 @@ function modifier($codeFilm,$titreO,$titreF,$pays,$dates,$duree,$couleur){
 	$req->bindParam(":dates",$dates);
 	$req->bindParam(":duree",$duree);
 	$req->bindParam(":couleur",$couleur);
-	$req->execute();
+	$req->bindParam(":reali",$real);
+	return $req->execute();
 }
 
 function getGenres(){

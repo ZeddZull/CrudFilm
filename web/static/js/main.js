@@ -10,11 +10,12 @@ $('#add').click(function(){
 $('#envoie').click(function(){
 	var titreO = $('#titreOriginal').val();
 	var titreF = $('#titreFrancais').val();	
-	var couleur = $('#couleur').val();
+	var couleur = $('input[name=couleur]').val();
 	var pays = $('#pays').val();
 	var date = $('#date').val();
 	var duree = $('#duree').val();
-	var real = $('#reals option:selected')
+	var real = $('#reals option:selected');
+	console.log([titreO,titreF,couleur,pays,date,duree,real.val()]);
 	$.ajax({
 		type:'POST',
 		url:'/ajouter',
@@ -25,8 +26,9 @@ $('#envoie').click(function(){
 				date:date,
 				duree:duree,
 				real:real.val()
-				} 
+				}
 	}).done(function(codeFilm){
+		console.log(codeFilm);
 		$('#addFilm').toggle();
 
 		var oModif = $("button");
@@ -46,8 +48,8 @@ $('#envoie').click(function(){
 			duree,	
 			couleur,
 			real.text(),	
-			"Actualiser",
-			"Actualiser"						
+			"",
+			""						
 		]).draw();
 
 	});
@@ -59,18 +61,25 @@ $(".action").click(function(){
 	var oCases = $("#" + codeFilm + " td:not(:has(button))");
 
 	if(valeur == "Modifier"){
-		oCases.attr("contentEditable","true");
+		for (var i = 4 ; i >= 0; i--) {
+			oCases.eq(i).attr("contentEditable","true");
+		};
 		$("#" + codeFilm).css("backgroundColor","#FAFC64");
 		$(this).attr("value","Sauver");
 		$("#" + codeFilm +" .btn-warning").attr("class","action btn btn-success btn-sm");
 		var select = $("#reals").clone();
 		select.attr("id","realModif"+codeFilm);
 		oCases.eq(6).html(select);
-		$("#realModif"+codeFilm+ 'option[value="'+oCases.eq(6).attr("dataid")+'"]').prop('selected',true);
-
+		var couleur = $("#" + codeFilm + " .couleur").text();
+		$("#realModif"+codeFilm+ ' option[value="'+oCases.eq(6).attr("dataid")+'"]').prop('selected',true);
+		$("#" + codeFilm + " .couleur").html('<select id="couleur'+codeFilm+'" class="form-control"><option value="NB">NB</option><option value="couleur">couleur</option><option value="NB/couleur">NB/couleur</option></select>');
+		$('#couleur' + codeFilm + ' option[value="'+couleur+'"]').prop('selected',true);
 	} else {
 		if(valeur == "Sauver"){
 			if(confirm("Voulez vous sauver ces modification ?")){
+				var info = $("#realModif"+codeFilm+" option:selected").text();
+				var couleur = $('#couleur' + codeFilm + ' option:selected').val();
+				console.log($("#realModif"+codeFilm+" option:selected").val());
 				$.ajax({
 					method:"POST",
 					url:"/modifier",
@@ -81,8 +90,13 @@ $(".action").click(function(){
 						pays:oCases.eq(2).text(),
 						dates:oCases.eq(3).text(),
 						duree:oCases.eq(4).text(),
-						couleur:oCases.eq(5).text()
+						couleur:couleur,
+						real:$("#realModif"+codeFilm+" option:selected").val()
 					}
+				}).done(function(bool){
+					console.log(bool);
+					oCases.eq(6).html(info);
+					oCases.eq(5).html(couleur);
 				});
 			}else{
 				$.ajax({
@@ -96,6 +110,7 @@ $(".action").click(function(){
 					oCases.eq(3).text(film.dates);
 					oCases.eq(4).text(film.duree);
 					oCases.eq(5).text(film.couleur);
+					oCases.eq(6).html(film.prenom+" "+film.nom);
 				});
 			}
 			$("#" + codeFilm + " td:not(:has(button))").attr("contentEditable","false");
@@ -138,10 +153,3 @@ $("#genres").change(function(){
 		});
 	}
 });
-
-// Petit test :)
-var table = $('#lesFilms').DataTable();
- 
-$('#lesFilms tbody').on( 'click', 'tr', function () {
-    console.log( table.row( this ).data() );
-} );
