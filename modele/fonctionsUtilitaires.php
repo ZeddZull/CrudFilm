@@ -8,17 +8,19 @@ function getAllFilms(){
 	return $req->fetchAll();
 }
 
-function ajouter($titreO,$titreF,$pays,$dates,$duree,$couleur){
+function ajouter($titreO,$titreF,$pays,$dates,$duree,$couleur,$real){
 	$bdd = connectBd();
-	$req = $bdd->prepare('INSERT INTO films(titre_original,titre_francais,pays,dates,duree,couleur) VALUES (:titreO,:titreF,:pays,:dates,:duree,:couleur)');
+	$req = $bdd->prepare('INSERT INTO films(titre_original,titre_francais,pays,dates,duree,couleur,realisateur) VALUES (:titreO,:titreF,:pays,:dates,:duree,:couleur,:reali)');
 	$req->execute(array(
 		"titreO"=>$titreO,
 		"titreF"=>$titreF,
 		"pays"=>$pays,
 		"dates"=>$dates,
 		"duree"=>$duree,
-		"couleur"=>$couleur
+		"couleur"=>$couleur,
+		"reali"=>$real
 		));
+	return $bdd->lastInsertId();
 }
 
 function getFilm($codeFilm){

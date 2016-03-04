@@ -1,4 +1,19 @@
 #addFilm{
 	display:none;
 }
+thead{
+	background-color:lightblue;
+}
 
+table.dataTable .odd {
+	background-color:#EEE;
+}
+table.dataTable .even{
+	background-color:#DDD;
+}
+table.dataTable{
+	border-style:solid;
+	border-color:black;
+	border-width:thin;
+	border-radius:5px;
+}

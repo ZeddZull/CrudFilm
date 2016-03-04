@@ -22,8 +22,7 @@ $app->get('/',function() use($app){
 });
 
 $app->post("/ajouter",function(Request $request) use($app){
-	ajouter($request->get("titreO"),$request->get("titreF"),$request->get("pays"),$request->get("date"),$request->get("duree"),$request->get("couleur"));
-	return true;
+	return ajouter($request->get("titreO"),$request->get("titreF"),$request->get("pays"),$request->get("date"),$request->get("duree"),$request->get("couleur"),$request->get("real"));
 });
 
 $app->post("/modifier",function(Request $request) use($app){

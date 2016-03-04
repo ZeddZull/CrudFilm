@@ -14,6 +14,7 @@ $('#envoie').click(function(){
 	var pays = $('#pays').val();
 	var date = $('#date').val();
 	var duree = $('#duree').val();
+	var real = $('#reals option:selected')
 	$.ajax({
 		type:'POST',
 		url:'/ajouter',
@@ -22,9 +23,10 @@ $('#envoie').click(function(){
 				couleur:couleur,
 				pays:pays,
 				date:date,
-				duree:duree 
+				duree:duree,
+				real:real.val()
 				} 
-	}).done(function(){
+	}).done(function(codeFilm){
 		$('#addFilm').toggle();
 
 		var oModif = $("button");
@@ -36,12 +38,14 @@ $('#envoie').click(function(){
 		oSuppr.attr("value","Supprimer");
 
 		$("#lesFilms").DataTable().row.add([
+			codeFilm,
 			titreO,
 			titreF,			
 			pays,
 			date,
 			duree,	
-			couleur,		
+			couleur,
+			real.text(),	
 			"Actualiser",
 			"Actualiser"						
 		]).draw();
@@ -56,8 +60,14 @@ $(".action").click(function(){
 
 	if(valeur == "Modifier"){
 		oCases.attr("contentEditable","true");
-		$("#" + codeFilm).css("backgroundColor","lightblue");
+		$("#" + codeFilm).css("backgroundColor","#FAFC64");
 		$(this).attr("value","Sauver");
+		$("#" + codeFilm +" .btn-warning").attr("class","action btn btn-success btn-sm");
+		var select = $("#reals").clone();
+		select.attr("id","realModif"+codeFilm);
+		oCases.eq(6).html(select);
+		$("#realModif"+codeFilm+ 'option[value="'+oCases.eq(6).attr("dataid")+'"]').prop('selected',true);
+
 	} else {
 		if(valeur == "Sauver"){
 			if(confirm("Voulez vous sauver ces modification ?")){
@@ -90,7 +100,12 @@ $(".action").click(function(){
 			}
 			$("#" + codeFilm + " td:not(:has(button))").attr("contentEditable","false");
 			$(this).attr("value","Modifier");
-			$("#" + codeFilm).css("backgroundColor","white");
+			if ($("#" + codeFilm).hasClass("odd")){
+				$("#" + codeFilm).css("backgroundColor","#EEEEEE");
+			} else {
+				$("#" + codeFilm).css("backgroundColor","#DDDDDD");
+			}
+			$("#" + codeFilm +" .btn-success").attr("class","action btn btn-warning btn-sm");
 		} else {
 			if (valeur == "Supprimer"){
 				$.ajax({
