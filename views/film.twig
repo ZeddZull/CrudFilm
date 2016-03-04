@@ -1,0 +1,84 @@
+{% extends 'header.twig' %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block body %}
+<section>
+    <label for="genres">Trouver par genre :</label>
+    <select id="genres">
+        <option value="0" selected>Tout</option>
+        {% for genre in lesGenres %}
+            <option value="{{genre.code_genre}}">{{genre.nom_genre}}</option>
+        {% endfor %}
+    </select>
+    <label for="reals">Trouver par real :</label>
+    <select id="reals">
+        <option value="0" selected>Tout</option>
+        {% for real in lesReals %}
+            <option value="{{real.code_indiv}}">{{real.prenom}} {{real.nom}}</option>
+        {% endfor %}
+    </select>
+</section>
+<section>
+  <table id = "lesFilms">
+    <thead>
+      <tr>
+        <td> CodeFilm </td>
+        <td> Titre Original </td>
+        <td> Titre Francais </td>
+        <td> Pays </td>
+        <td> Date </td>
+        <td> Durée </td>
+        <td> Couleur </td>
+        <td> Réalisateur </td>
+        <td> Modifier </td>
+        <td> Supprimer </td>
+      </tr>
+    </thead>
+    <tbody id = "corpsFilms">
+        {% for film in lesFilms %}
+      <tr id="{{film.code_film}}">
+        <td> {{film.code_film}} </td>
+        <td> {{film.titre_original}} </td>
+        <td> {{film.titre_francais}} </td>
+        <td> {{film.pays}} </td>
+        <td> {{film.dates}} </td>
+        <td> {{film.duree}} </td>
+        <td> {{film.couleur}} </td>
+        <td id="real"~{{film.code_film}}> {{film.prenom~" "~film.nom}} </td>
+        <td> <input value="Modifier" type="button" dataid="{{film.code_film}}" class="action"/> </td>
+        <td> <input value="Supprimer" type="button" dataid="{{film.code_film}}" class="action"/> </td>
+      </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</section>
+<section>
+  <input type = "button" id="add" value="Nouveau film" />
+
+  <div id="addFilm">
+    {# Création du champs permettant d'editer de nouveaux films #}
+    
+    <label for="titreOriginal"> Titre Original </label>
+    <input type="text" id="titreOriginal" name="titreOriginal">
+    <br>
+    <label for="titreFrancais"> Titre Francais </label>
+    <input type="text" id="titreFrancais" name="titreFrancais">
+    <br>
+    <label for="couleur"> Noir/Blanc et/ou Couleur </label>
+    <input type="text" id="couleur" name="couleur">
+    <br>
+    <label for="pays"> Pays </label>
+    <input type="text" id="pays" name="pays">
+    <br>
+    <label for="date"> Date </label>
+    <input type="date" id="date" name="date">
+    <br>
+    <label for="duree"> Durée </label>
+    <input type="number" id="duree" name="duree">
+    <br>
+    <input type="button" id="envoie" value="Envoyer"/>
+  </div>
+</section>
+
+{% endblock %}
