@@ -5,6 +5,7 @@
 		"csanquer/pdo-service-provider":"~1.0",
 		"symfony/twig-bridge":"^3.0",
 		"symfony/class-loader": "^3.0",
-		"symfony/http-foundation": "^3.0"
+		"symfony/http-foundation": "^3.0",
+		"twbs/bootstrap": "^3.3"
 	}
 }
